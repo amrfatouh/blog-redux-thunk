@@ -1,0 +1,41 @@
+make an application that has 1 screen that when loaded, it loads posts & users from jsonplaceholder api
+
+create PostList component that views all posts
+create UserHeader component that is responsible for viewing user's name
+do the previous by connecting these components to redux and waiting till redux store get the data
+the PostList component invokes action creator fetchPostsAndUsers
+that action creator in trun invokes fetchPosts action creator which brings all posts to store
+after that the action creator invokes fetchUser for each unique user to bring each user data to store
+PostList and UserHeader are connected to store waiting for the data to arrive
+make reducers that take the actions and modify the store
+postsReducer takes FETCH_POSTS action and sets the state posts to the payload
+userReducer takes FETCH_USER action and adds the payload to the state users
+
+jsonPlaceholder instance
+export an instance that makes a request to jsonplaceholder api
+
+fetchPost action creator
+it receives nothing
+it returns a function that does the request then dispatches the action
+it makes request using jsonPlaceholder instance to posts
+it waits for the response then dispatches an action containing the data from the response and of type FETCH_POSTS
+
+fetchUser action creator
+it receives the user id
+return a function that makes the request and dispatches the action
+make the request using jsonPlaceholder axios instance and wait for response to arrive
+dispatch an action of type FETCH_USER and put the user in the payload
+
+fetchPostsAndUsers
+receive nothing
+invoke fetchPosts action creator and dispatch the returned function
+wait for dispatch to finish so that the posts are placed into store
+get the posts from the store and for each unique user id, invoke fetchUser action creator and dispatch the returned function
+
+postsReducer
+receive state (default is empty array) and action
+if action is FETCH_POSTS, return payload
+
+userReducer
+receive state (default is empty array) and action
+if action is FETCH_USER, return the state with the payload added to it
